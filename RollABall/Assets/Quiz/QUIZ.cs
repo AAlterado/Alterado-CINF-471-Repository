@@ -33,3 +33,4 @@ public class Quiz : MonoBehaviour
         movement = moveVal.Get<Vector2>();
     }
 
+}
