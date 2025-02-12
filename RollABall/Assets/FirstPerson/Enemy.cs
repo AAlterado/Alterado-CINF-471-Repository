@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-
+    [SerializeField]
     int health = 5;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -19,8 +19,13 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    void OnTriggerEnter()
+    void OnTriggerEnter(Collider other)
     {
-        health -= 1;
+        if (other.GetComponent<Bullet>())
+        {
+            health -= 1;
+            Destroy(other.gameObject);
+        }
+        print("hit");
     }
 }

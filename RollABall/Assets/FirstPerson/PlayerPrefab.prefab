@@ -153,6 +153,7 @@ GameObject:
   - component: {fileID: 5973638467049976345}
   - component: {fileID: 6515625029576348825}
   - component: {fileID: 5650231787593550331}
+  - component: {fileID: 2101894068219178664}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -296,7 +297,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 2
   mouseSensitivity: 100
-  cam: {fileID: 0}
+  cam: {fileID: 1399879269231285012}
+  bulletSpawner: {fileID: 4205360704442036675}
+  bullet: {fileID: 1168029615202195204, guid: 9929480cdce118f428af6f23eac9891a, type: 3}
 --- !u!143 &5650231787593550331
 CharacterController:
   m_ObjectHideFlags: 0
@@ -322,6 +325,20 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2101894068219178664
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3995526556973679606}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5101ee11048c3a419c240260dcbc5b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 0
+  maxHealth: 10
 --- !u!1 &4205360704442036675
 GameObject:
   m_ObjectHideFlags: 0
@@ -346,13 +363,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4205360704442036675}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0.06651676, y: -0, z: -0, w: 0.99778533}
+  m_LocalPosition: {x: -0.01, y: -0.372, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4985563959951911299}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -7.628, y: 0, z: 0}
 --- !u!1 &7892475138980783908
 GameObject:
   m_ObjectHideFlags: 0
