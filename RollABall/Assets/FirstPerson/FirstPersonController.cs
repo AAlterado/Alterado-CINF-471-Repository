@@ -11,12 +11,13 @@ public class FirstPersonController : MonoBehaviour
     GameObject cam;
     [SerializeField]
     GameObject bulletSpawner;
-
+    bool hasJumped = false;
     [SerializeField]
     GameObject bullet;
 
     Vector2 movement;
     Vector2 mouseMovement;
+    
     CharacterController chara;
     float cameraUpRotation = 0;
 
@@ -41,8 +42,18 @@ public class FirstPersonController : MonoBehaviour
         transform.Rotate(Vector3.up * lookX);
         float moveX = movement.x;
         float moveZ = movement.y;
-        Vector3 m = (transform.right * moveX) + (transform.forward * moveZ);
-        chara.SimpleMove(m*speed);
+        Vector3 actual_movement = (transform.right * moveX) + (transform.forward * moveZ);
+        
+
+        //jump and gravity
+        if (hasJumped)
+        {
+            hasJumped = false;
+            actual_movement.y = 10;
+        }
+
+        actual_movement.y -= 10 * Time.deltaTime;
+        chara.SimpleMove(actual_movement*speed);
     }
 
     void OnMove(InputValue moveVal)
@@ -53,6 +64,12 @@ public class FirstPersonController : MonoBehaviour
     void OnLook(InputValue lookVal)
     {
         mouseMovement = lookVal.Get<Vector2>();
+    }
+
+    //jump mechanic
+    void OnJump()
+    {
+        hasJumped = true;
     }
 
     void OnAttack()
