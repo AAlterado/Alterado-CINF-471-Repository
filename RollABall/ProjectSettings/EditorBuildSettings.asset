@@ -11,9 +11,12 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/FirstPerson/FPS.unity
     guid: 13a47286fe973954e855309ec265791e
-  - enabled: 1
+  - enabled: 0
     path: Assets/SimpleStateMachine/SimpleStateMachine.unity
     guid: 9e6a12a0b84da114aad20c8a6ec31630
+  - enabled: 1
+    path: Assets/StateMachines2/StateMachines.unity
+    guid: bbe1495d02d5638458589deed807ee1d
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
