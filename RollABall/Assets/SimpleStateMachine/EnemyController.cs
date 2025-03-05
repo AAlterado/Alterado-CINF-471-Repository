@@ -87,7 +87,9 @@ public class EnemyController : MonoBehaviour
 
     void MoveTo(GameObject t)
     {
-        transform.position = Vector3.MoveTowards(transform.position, t.transform.position, speed * Time.deltaTime);
+        Vector3 target = t.transform.position;
+        target.y = transform.position.y;
+        transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
         transform.LookAt(t.transform, Vector3.up);
     }
 

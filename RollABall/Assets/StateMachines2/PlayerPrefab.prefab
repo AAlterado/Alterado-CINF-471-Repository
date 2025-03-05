@@ -193,14 +193,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movement: {x: 0, y: 0}
-  default_speed: 1
+  default_speed: 5
   isSneaking: 0
   speed: 5
   cam: {fileID: 6978438352760659795}
-  mouseSensitivity: 100
+  mouseSensitivity: 50
   bulletSpawner: {fileID: 3753049457272180729}
   bullet: {fileID: 1168029615202195204, guid: 9929480cdce118f428af6f23eac9891a, type: 3}
-  jumpHeight: 1
+  jumpHeight: 0.2
   gravity: -1.5
 --- !u!114 &2615747555814351522
 MonoBehaviour:

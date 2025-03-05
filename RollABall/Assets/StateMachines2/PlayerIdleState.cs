@@ -10,7 +10,8 @@ public class PlayerIdleState : PlayerBaseState
     public override void UpdateState(PlayerStateManager player)
     {
         //What are we doing during this state?
-        //Nothing!
+        player.Gravity();
+        player.moveCamera();
 
         //On what conditions do we leave the state?
         if (player.movement.magnitude > 0.1)

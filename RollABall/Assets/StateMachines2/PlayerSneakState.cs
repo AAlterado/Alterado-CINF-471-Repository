@@ -10,6 +10,8 @@ public class PlayerSneakState : PlayerBaseState
     public override void UpdateState(PlayerStateManager player)
     {
         //What are we doing during this state?
+        player.Gravity();
+        player.moveCamera();
         player.MovePlayer(player.default_speed / 2);
 
         //On what conditions do we leave the state?

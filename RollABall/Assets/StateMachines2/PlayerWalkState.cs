@@ -10,6 +10,8 @@ public class PlayerWalkState : PlayerBaseState
     public override void UpdateState(PlayerStateManager player)
     {
         //What are we doing during this state?
+        player.Gravity();
+        player.moveCamera();
         player.MovePlayer(player.default_speed);
 
         //On what conditions do we leave the state?

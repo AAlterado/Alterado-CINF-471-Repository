@@ -17,15 +17,13 @@ public class PlayerStateManager : MonoBehaviour
     Vector2 mouseMovement;
 
     CharacterController controller;
-    public float default_speed = 1;
+    public float default_speed = 5;
 
     float cameraUpRotation = 0;
 
     public bool isSneaking = false;
 
     private Vector3 velocity; //Stores vertical movement
-    [SerializeField]
-    float speed = 5.0f;
     [SerializeField]
     GameObject cam;
     [SerializeField]
@@ -34,14 +32,12 @@ public class PlayerStateManager : MonoBehaviour
     GameObject bulletSpawner;
     [SerializeField]
     GameObject bullet;
-
     [SerializeField]
     float jumpHeight = 25.0f; //jump height
     [SerializeField]
     float gravity = -100.0f; //gravity strength
     private bool isGrounded;
-
-
+    float lookX = 0.0f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -57,37 +53,10 @@ public class PlayerStateManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        currentState.UpdateState(this);
-
-        //Ground Check
-        isGrounded = controller.isGrounded;
-
-        //Prevent gravity from overriding jump immediately
-        if (isGrounded && velocity.y < 0)
-        {
-            velocity.y = -2.0f; //Small downward force to keep the player grounded
-        }
-        velocity.y += gravity * Time.deltaTime;
-        
-
-        //Camera
-        float lookX = mouseMovement.x * Time.deltaTime * mouseSensitivity;
-        float lookY = mouseMovement.y * Time.deltaTime * mouseSensitivity;
-        cameraUpRotation -= lookY;
-        cameraUpRotation = Mathf.Clamp(cameraUpRotation, -90, 90);
-        cam.transform.localRotation = Quaternion.Euler(cameraUpRotation,0,0);
-
-        //Movement
-        transform.Rotate(Vector3.up * lookX);
-        float moveX = movement.x;
-        float moveZ = movement.y;
-        Vector3 move = transform.right * movement.x + transform.forward * movement.y;
-        Vector3 moveDirection = (move * speed * Time.deltaTime);
-        controller.Move(moveDirection + velocity * Time.deltaTime);
+        currentState.UpdateState(this); 
     }
 
     // Handle Input //
-
     void OnMove(InputValue moveVal)
     {
         movement = moveVal.Get<Vector2>();
@@ -113,11 +82,38 @@ public class PlayerStateManager : MonoBehaviour
     // Helper Function //
     public void MovePlayer(float speed)
     {
+        //Movement
         float moveX = movement.x;
         float moveZ = movement.y;
+        Vector3 move = transform.right * movement.x + transform.forward * movement.y;
+        Vector3 moveDirection = (move * speed * Time.deltaTime);
+        controller.Move(moveDirection + velocity * Time.deltaTime);
+    }
 
-        Vector3 actual_movement = new Vector3(moveX, 0, moveZ);
-        controller.Move(actual_movement * Time.deltaTime * speed);
+    public void moveCamera()
+    {
+        //Camera
+        lookX = mouseMovement.x * Time.deltaTime * mouseSensitivity;
+        float lookY = mouseMovement.y * Time.deltaTime * mouseSensitivity;
+        cameraUpRotation -= lookY;
+        cameraUpRotation = Mathf.Clamp(cameraUpRotation, -90, 90);
+        cam.transform.localRotation = Quaternion.Euler(cameraUpRotation,0,0);
+        transform.Rotate(Vector3.up * lookX);
+    }
+
+    public void Gravity()
+    {
+        //Ground Check
+        isGrounded = controller.isGrounded;
+
+        //Prevent gravity from overriding jump immediately
+        if (isGrounded && velocity.y < 0)
+        {
+            velocity.y = -2.0f; //Small downward force to keep the player grounded
+        }
+        velocity.y += gravity * Time.deltaTime;
+        Vector3 gravity_movement = new Vector3(0, velocity.y, 0);
+        controller.Move(gravity_movement);
     }
 
     public void SwitchState(PlayerBaseState newState)
@@ -128,15 +124,16 @@ public class PlayerStateManager : MonoBehaviour
 
     //jump mechanic
     void OnJump()
-{
-    if (isGrounded) //Only jump if on the ground
     {
-        velocity.y = Mathf.Sqrt(jumpHeight * -2.0f * gravity); 
+        if (isGrounded) //Only jump if on the ground
+        {
+            velocity.y = Mathf.Sqrt(jumpHeight * -2.0f * gravity); 
+        }
     }
-}
 
     void OnAttack()
     {
         Instantiate(bullet, bulletSpawner.transform.position, bulletSpawner.transform.rotation);
     }
+
 }
